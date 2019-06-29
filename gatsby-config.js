@@ -5,5 +5,12 @@
  */
 
 module.exports = {
-  /* Your site config here */
+	siteMetadata: {
+		title: 'Discovering the World',
+		titleHelper: 'Making your Life Easier'
+	},
+
+	plugins: [
+		'gatsby-plugin-sass'
+	]
 }
