@@ -11,6 +11,14 @@ module.exports = {
 	},
 
 	plugins: [
-		'gatsby-plugin-sass'
-	]
+		'gatsby-plugin-sass',
+     {
+       resolve: `gatsby-source-drupal`,
+       options: {
+         baseUrl: `http://dev-test-site-dl.pantheonsite.io/`,
+       }
+     }
+  ]
+
+
 }

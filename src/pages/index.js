@@ -2,18 +2,52 @@ import React from "react"
 import Layout from "../components/layout";
 import PostItem from "../components/post-item";
 
-export default ({data}) => {
-  const post = {
-    id: 1,
-    title: 'Dummy data',
-    summary: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur, dolorum labore. Earum alias, iure veritatis consectetur odio quasi voluptatem ab est',
-    created: 'March 24, 2018',
-    category: 'CATEGORY',
-    image: ''
-  }
+export default (props) => {
+  const posts = props.data.allNodePost.nodes.map((node) => {
+    return {
+      id: node.id,
+      title: node.title,
+      summary: node.body.summary,
+      created: node.created,
+      category: node.relationships.field_category.name,
+      image: node.field_image_url,
+      path: node.path.alias
+    }
+  })
+
 	return (
 		<Layout>
-      <PostItem key={post.id} post={post}></PostItem>
+      <div style={{display: 'flex', flexWrap: 'wrap'}}>
+        {
+          posts.map((post) => <PostItem key={post.id} post={post}></PostItem>)
+        }
+
+      </div>
 		</Layout>
 	)
 }
+
+
+export const query = graphql`
+  {
+    allNodePost (sort: {fields: created}) {
+      nodes {
+        id
+        title
+        body {
+          summary
+        }
+        created(formatString: "MMMM DD, YYYY"),
+        relationships {
+          field_category {
+            name
+          }
+        }
+        field_image_url
+        path {
+          alias
+        }
+      }
+    }
+  }
+`

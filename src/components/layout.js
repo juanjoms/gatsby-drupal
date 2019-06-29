@@ -6,7 +6,7 @@ import Header from "./header";
 export default ({ children }) => {
   const data = useStaticQuery(
     graphql`
-    query {
+      {
       site {
         siteMetadata {
           title
@@ -18,11 +18,12 @@ export default ({ children }) => {
   return (
     <div className="layout">
       <Header
-        title="Dummy title"
-        titleHelper="Dummy helper title" >
+        title={data.site.siteMetadata.title}
+        titleHelper={data.site.siteMetadata.titleHelper} >
       </Header>
       <ul className="nav">
         <li> <Link to="/">Home</Link> </li>
+        <li> <Link to="/contact">Contact</Link> </li>
         <li> <Link to="/about">About</Link> </li>
       </ul>
       {children}

@@ -4,8 +4,8 @@ import Layout from './../components/layout';
 import { Link } from 'gatsby';
 
 export default ({data}) => {
-	const randomImage = "https://source.unsplash.com/weekly?beach"
-	const description = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas vero saepe odio in iure, ratione ex? Ducimus architecto soluta corrupti molestias sequi! Sequi consequuntur ex veniam tempora obcaecati, aspernatur nemo! <br> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas vero saepe odio in iure, ratione ex? Ducimus architecto soluta corrupti molestias sequi! Sequi consequuntur ex veniam tempora obcaecati, aspernatur nemo! <br>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas vero saepe odio in iure, ratione ex? Ducimus architecto soluta corrupti molestias sequi! Sequi consequuntur ex veniam tempora obcaecati, aspernatur nemo!';
+	const randomImage = data.nodePost.field_image_url;
+	const description = data.nodePost.body.value;
 	return (
 		<Layout>
 			<div className={styles.postDetail}>
@@ -15,14 +15,27 @@ export default ({data}) => {
 						View Posts
 					</Link>
 					<h2 className={styles.title}>
-						Dummy Data
+						{data.nodePost.title}
 					</h2>
 				</div>
 				<div className={styles.postInfo}>
-					March 03, 2019
+					{data.nodePost.created}
 				</div>
 				<div className={styles.postDescription}  dangerouslySetInnerHTML={{__html: description}}></div>
 			</div>
 		</Layout>
 	)
 }
+
+export const query = graphql`
+  query ($id: String!){
+    nodePost(id: {eq: $id}) {
+      title
+      body {
+        value
+      }
+			created(formatString: "MMM DD, YYYY")
+			field_image_url
+    }
+  }
+`;
