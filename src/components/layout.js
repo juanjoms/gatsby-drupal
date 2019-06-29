@@ -18,8 +18,8 @@ export default ({ children }) => {
   return (
     <div className="layout">
       <Header
-        title={data.site.siteMetadata.title}
-        titleHelper={data.site.siteMetadata.titleHelper} >
+        title="Dummy title"
+        titleHelper="Dummy helper title" >
       </Header>
       <ul className="nav">
         <li> <Link to="/">Home</Link> </li>
